@@ -50,14 +50,11 @@
           <a class="nav-link js-scroll-trigger" href="#education">Education</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#projects">Projects</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#interests">Interests</a>
-        </li> -->
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#skills">Skills</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
         </li>
@@ -150,6 +147,114 @@
       </div>
     </section>
 
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="projects">
+      <div class="my-auto">
+        <h2 class="mb-5">Projects</h2>
+
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">Convolutional Neural Network Image Classification</text>
+            </h3>
+            <div class="subheading mb-3"><a
+                href="https://ucsdcloud-my.sharepoint.com/:b:/g/personal/lecai_ucsd_edu/EfxTHWN3gA1FoRiLrWXCLNAB7kettH1unlEEvRP5F0sg3w?e=qWAOWH">Report</a>
+            </div>
+            <p>Developed a custom convolutional neural network with PyTorch to classify 20 categories of food images.
+              Constructed and trained the neural net with PyTorch and cuda. Optimized the network through changing the
+              architecture and the hyperparameters.
+              Graphed and analyzed the feature maps and the filters with matplotlib.</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">Feburary 2022</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">Twitter Sentiment Analysis API</text></h3>
+            <div class="subheading mb-3"><a href="https://github.com/louie-cai/Sentiment-Analysis-API">GitHub Repo</a>
+            </div>
+            <p>
+              Developed a configurable LSTM model to classify the sentiment of Twitter tweets into different categories
+              and
+              created an API that returns a response JSON object of the sentiment result with FastAPI.
+              Trained 1000 different LSTM models with grid search to find the optimal hyperparameters.</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">July 2022</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">Tiktok Reddit Video Automator</text></h3>
+            <div class="subheading mb-3"><a href="https://github.com/louie-cai/tiktok-reddit-post-automator">GitHub
+                Repo</a></div>
+            <p>Created a Python script that downloads hottest videos from subreddits with the Reddit API and uploads
+              them to
+              tiktok accounts with Python and Selenium.
+              Can be deployed to a server and post videos automatically with configurable settings (rest interval,
+              target subreddit,
+              etc.)</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">August 2022 - Now</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">Minecraft Mod Development</text></h3>
+            <div class="subheading mb-3"><a href="https://github.com/louie-cai/Netherite-Horse-Armor-Mod">GitHub
+                Repo</a></div>
+            <p>Developed Minecraft plugins that improves/expands the player experience by adding items to interact with
+              in Minecraft. The most popular plugin current has over <b>2.6M downloads</b> on <a
+                href="https://www.curseforge.com/minecraft/mc-mods/netherite-horse-armor-mod">CurseForge</a>.</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">June 2020 - Dec 2020</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row mb-5">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">iOS Mobile Hockey Game</text></h3>
+            <!-- <div class="subheading mb-3"><a href="https://github.com/louie-cai/Netherite-Horse-Armor-Mod">GitHub Repo</a></div> -->
+            <p>Developed a touch-based air hockey game with C# under the Unity game engine with a functional alpha
+              version
+              with a proper game mechanism, scoring system, UI animations, and an AI trained through reinforcement
+              learning
+              with Unity’s ML-Agents library
+              Uses C# scripts to create custom behaviors and trigger events. Uses Blender to model the
+              game objects. Uses Photoshop to adjust the UI sprites.</p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">July 2021 - Today</span>
+          </div>
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row">
+          <div class="resume-content mr-auto">
+            <h3 class="mb-0"><text class="fancy-link">Raspberry Pi Stock Updater</text></h3>
+            <div class="subheading mb-3"><a href="https://github.com/louie-cai/raspberry-pi-stock-checker">GitHub
+                Repo</a>
+            </div>
+            <p>
+              Created a configurable Python webscraper that checks <a href="https://www.raspberrypi.org/">Raspberry
+                Pi</a> stocks from verified sellers and
+              prints out the information in colored and formatted texts. Uses request to download the html source code
+              of each webpage and BeautifulSoup4 to
+              load the html code and find the tags containing the desired information. Uses termcolor to
+              format the outputs.
+            </p>
+          </div>
+          <div class="resume-date text-md-right">
+            <span class="text-primary">Feburary 2022</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="skills">
       <div class="my-auto">
@@ -263,113 +368,6 @@
       </div>
     </section>
 
-    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="projects">
-      <div class="my-auto">
-        <h2 class="mb-5">Projects</h2>
-
-        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">Convolutional Neural Network Image Classification</text>
-            </h3>
-            <div class="subheading mb-3"><a
-                href="https://ucsdcloud-my.sharepoint.com/:b:/g/personal/lecai_ucsd_edu/EfxTHWN3gA1FoRiLrWXCLNAB7kettH1unlEEvRP5F0sg3w?e=qWAOWH">Report</a>
-            </div>
-            <p>Developed a custom convolutional neural network with PyTorch to classify 20 categories of food images.
-              Constructed and trained the neural net with PyTorch and cuda. Optimized the network through changing the
-              architecture and the hyperparameters.
-              Graphed and analyzed the feature maps and the filters with matplotlib.</p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">Feburary 2022</span>
-          </div>
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">Twitter Sentiment Analysis API</text></h3>
-            <div class="subheading mb-3"><a href="https://github.com/louie-cai/Sentiment-Analysis-API">GitHub Repo</a>
-            </div>
-            <p>
-              Developed a configurable LSTM model to classify the sentiment of Twitter tweets into different categories
-              and
-              created an API that returns a response JSON object of the sentiment result with FastAPI.
-              Trained 1000 different LSTM models with grid search to find the optimal hyperparameters.</p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">July 2022</span>
-          </div>
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">Tiktok Reddit Video Automator</text></h3>
-            <div class="subheading mb-3"><a href="https://github.com/louie-cai/tiktok-reddit-post-automator">GitHub
-                Repo</a></div>
-            <p>Created a Python script that downloads hottest videos from subreddits with the Reddit API and uploads
-              them to
-              tiktok accounts with Python and Selenium.
-              Can be deployed to a server and post videos automatically with configurable settings (rest interval,
-              target subreddit,
-              etc.)</p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">August 2022 - Now</span>
-          </div>
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">Minecraft Mod Development</text></h3>
-            <div class="subheading mb-3"><a href="https://github.com/louie-cai/Netherite-Horse-Armor-Mod">GitHub
-                Repo</a></div>
-            <p>Developed Minecraft plugins that improves/expands the player experience by adding items to interact with
-              in Minecraft. The most popular plugin current has over 2.4M downloads on <a
-                href="https://www.curseforge.com/minecraft/mc-mods/netherite-horse-armor-mod">CurseForge</a>.</p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">June 2020 - Dec 2020</span>
-          </div>
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row mb-5">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">iOS Mobile Hockey Game</text></h3>
-            <!-- <div class="subheading mb-3"><a href="https://github.com/louie-cai/Netherite-Horse-Armor-Mod">GitHub Repo</a></div> -->
-            <p>Developed a touch-based air hockey game with C# under the Unity game engine with a functional alpha
-              version
-              with a proper game mechanism, scoring system, UI animations, and an AI trained through reinforcement
-              learning
-              with Unity’s ML-Agents library
-              Uses C# scripts to create custom behaviors and trigger events. Uses Blender to model the
-              game objects. Uses Photoshop to adjust the UI sprites.</p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">July 2021 - Today</span>
-          </div>
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row">
-          <div class="resume-content mr-auto">
-            <h3 class="mb-0"><text class="fancy-link">Raspberry Pi Stock Updater</text></h3>
-            <div class="subheading mb-3"><a href="https://github.com/louie-cai/raspberry-pi-stock-checker">GitHub
-                Repo</a>
-            </div>
-            <p>
-              Created a configurable Python webscraper that checks <a href="https://www.raspberrypi.org/">Raspberry
-                Pi</a> stocks from verified sellers and
-              prints out the information in colored and formatted texts. Uses request to download the html source code
-              of each webpage and BeautifulSoup4 to
-              load the html code and find the tags containing the desired information. Uses termcolor to
-              format the outputs.
-            </p>
-          </div>
-          <div class="resume-date text-md-right">
-            <span class="text-primary">Feburary 2022</span>
-          </div>
-        </div>
-      </div>
-
-    </section>
 
 
 
