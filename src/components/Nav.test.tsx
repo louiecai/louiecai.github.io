@@ -14,11 +14,10 @@ describe('Nav', () => {
   });
 
   it('shows nav links after scroll', () => {
+    Object.defineProperty(window, 'scrollY', { writable: true, configurable: true, value: 200 });
     render(<Nav />);
-    fireEvent.scroll(window, { target: { scrollY: 200 } });
-    // After scroll triggers visibility, nav should appear with section links
-    // Note: framer-motion AnimatePresence is mocked to always render children
-    // so nav renders when visible state is true
-    expect(screen.queryByText('Experience')).toBeDefined();
+    fireEvent.scroll(window);
+    expect(screen.queryByText('Experience')).not.toBeNull();
+    Object.defineProperty(window, 'scrollY', { writable: true, configurable: true, value: 0 });
   });
 });
