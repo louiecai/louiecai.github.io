@@ -1,44 +1,42 @@
 {
-  "title": "Resume",
-  "name": "startbootstrap-resume",
-  "version": "4.0.0-beta.2",
-  "description": "Resume is a simple, yet elegant resume and CV theme for Bootstrap 4.",
-  "keywords": [
-    "css",
-    "sass",
-    "html",
-    "responsive",
-    "theme",
-    "template"
-  ],
-  "homepage": "https://startbootstrap.com/template-overviews/resume",
-  "bugs": {
-    "url": "https://github.com/BlackrockDigital/startbootstrap-resume/issues",
-    "email": "feedback@startbootstrap.com"
-  },
-  "license": "MIT",
-  "author": "Start Bootstrap",
-  "contributors": [
-    "David Miller (http://davidmiller.io/)"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BlackrockDigital/startbootstrap-resume.git"
+  "name": "louiecai.com",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-beta.2",
-    "devicons": "^1.8.0",
-    "jquery": "^3.2.1",
-    "popper.js": "^1.12.6",
-    "simple-line-icons": "^2.4.1"
+    "framer-motion": "^12.40.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "browser-sync": "^2.29.3",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^3.10.0",
-    "gulp-header": "1.8.9",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^5.1.0",
-    "gulp-uglify": "3.0.0"
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.8",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.8"
   }
 }
