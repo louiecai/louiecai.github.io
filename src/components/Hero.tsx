@@ -1,5 +1,8 @@
+import { motion } from 'framer-motion';
 import { ParticleField } from './ParticleField';
+import { MagneticButton } from './MagneticButton';
 import { profile } from '../data/profile';
+import { staggerContainer, fadeUpItem } from '../lib/variants';
 
 const SOCIAL_LABELS = ['GitHub', 'LinkedIn', 'Twitter', 'Email'];
 
@@ -17,48 +20,63 @@ export function Hero() {
     >
       <ParticleField />
 
-      <div className="relative z-10 text-center max-w-3xl mx-auto px-4">
+      <motion.div
+        className="relative z-10 text-center max-w-3xl mx-auto px-4"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+      >
         {/* Eyebrow label */}
-        <p className="font-mono text-cyan text-sm tracking-widest mb-4 uppercase">
+        <motion.p
+          variants={fadeUpItem}
+          className="font-mono text-cyan text-sm tracking-widest mb-4 uppercase"
+        >
           Hello, I'm
-        </p>
+        </motion.p>
 
-        {/* Name */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
-          {profile.name}
-        </h1>
+        {/* Name with sheen */}
+        <motion.h1
+          variants={fadeUpItem}
+          className="text-5xl md:text-7xl font-bold mb-4"
+        >
+          <span className="text-sheen">{profile.name}</span>
+        </motion.h1>
 
         {/* Role */}
-        <p className="text-xl md:text-2xl text-muted mb-6">
+        <motion.p variants={fadeUpItem} className="text-xl md:text-2xl text-muted mb-6">
           {currentRole} <span className="text-violet">@</span>{' '}
           <span className="text-white font-semibold">{currentCompany}</span>
-        </p>
+        </motion.p>
 
         {/* Tagline */}
-        <p className="text-muted max-w-xl mx-auto mb-10 leading-relaxed">
+        <motion.p variants={fadeUpItem} className="text-muted max-w-xl mx-auto mb-10 leading-relaxed">
           {profile.tagline}
-        </p>
+        </motion.p>
 
         {/* CTAs */}
-        <div className="flex flex-wrap gap-4 justify-center mb-10">
-          <button
-            onClick={scrollToWork}
-            className="px-6 py-3 bg-cyan text-bg font-semibold rounded hover:bg-white transition-colors"
-          >
-            View My Work
-          </button>
-          <a
-            href={profile.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 border border-cyan text-cyan rounded hover:bg-cyan hover:text-bg transition-colors"
-          >
-            Resume
-          </a>
-        </div>
+        <motion.div variants={fadeUpItem} className="flex flex-wrap gap-4 justify-center mb-10">
+          <MagneticButton>
+            <button
+              onClick={scrollToWork}
+              className="px-6 py-3 bg-cyan text-bg font-semibold rounded hover:bg-white transition-colors"
+            >
+              View My Work
+            </button>
+          </MagneticButton>
+          <MagneticButton>
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 border border-cyan text-cyan rounded hover:bg-cyan hover:text-bg transition-colors"
+            >
+              Resume
+            </a>
+          </MagneticButton>
+        </motion.div>
 
         {/* Socials */}
-        <div className="flex gap-4 justify-center">
+        <motion.div variants={fadeUpItem} className="flex gap-4 justify-center mb-16">
           {profile.socials
             .filter(s => SOCIAL_LABELS.includes(s.label))
             .map(social => (
@@ -73,8 +91,26 @@ export function Hero() {
                 {social.label}
               </a>
             ))}
-        </div>
-      </div>
+        </motion.div>
+
+        {/* Scroll cue */}
+        <motion.div
+          className="flex justify-center text-muted"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          aria-hidden="true"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

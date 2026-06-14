@@ -23,3 +23,31 @@
     background: rgba(0, 229, 255, 0.25);
   }
 }
+
+@layer utilities {
+  .text-sheen {
+    background: linear-gradient(
+      90deg,
+      #00e5ff 0%,
+      #b388ff 40%,
+      #00e5ff 60%,
+      #b388ff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .text-sheen {
+      animation: sheen 4s linear infinite;
+    }
+  }
+}
+
+@keyframes sheen {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
