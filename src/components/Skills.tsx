@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Section } from './Section';
+import { DecodeText } from './DecodeText';
 import { profile } from '../data/profile';
 import { fadeUpItem, popItem } from '../lib/variants';
 
@@ -10,7 +11,7 @@ export function Skills() {
         {profile.skillGroups.map((group) => (
           <motion.div key={group.category} variants={fadeUpItem}>
             <h3 className="text-xs font-mono text-cyan uppercase tracking-widest mb-3">
-              {group.category}
+              <DecodeText text={group.category} className="" />
             </h3>
             <div className="flex flex-wrap gap-2">
               {group.skills.map((skill) => (

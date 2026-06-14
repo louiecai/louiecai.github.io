@@ -1,14 +1,17 @@
 // src/components/AuroraBackground.tsx
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { useTiltParallax } from '../hooks/useTiltParallax';
 
 export function AuroraBackground() {
   const reduced = usePrefersReducedMotion();
+  const parallaxRef = useTiltParallax<HTMLDivElement>(28);
 
   return (
     <div
       aria-hidden="true"
       className="fixed inset-0 -z-20 overflow-hidden pointer-events-none"
     >
+      <div ref={parallaxRef} className="absolute inset-[-5%] will-change-transform">
       {/* Blob 1 — cyan, top-left region */}
       <div
         style={{
@@ -51,6 +54,7 @@ export function AuroraBackground() {
           animation: reduced ? 'none' : 'aurora-1 35s ease-in-out infinite alternate-reverse',
         }}
       />
+      </div>
     </div>
   );
 }

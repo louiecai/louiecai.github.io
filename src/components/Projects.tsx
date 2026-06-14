@@ -3,6 +3,7 @@ import { Section } from './Section';
 import { profile } from '../data/profile';
 import type { ProjectItem } from '../data/profile';
 import { TiltCard } from './TiltCard';
+import { DecodeText } from './DecodeText';
 import { fadeUpItem } from '../lib/variants';
 import { CountUp } from './CountUp';
 
@@ -10,7 +11,9 @@ function ProjectCard({ project }: { project: ProjectItem }) {
   return (
     <TiltCard className="bg-surface border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-white font-semibold">{project.name}</h3>
+        <h3 className="text-white font-semibold">
+          <DecodeText text={project.name} className="" />
+        </h3>
         {project.highlight && (
           <span className="text-xs font-mono text-cyan border border-cyan/30 rounded px-1.5 py-0.5 whitespace-nowrap">
             <CountUp value={project.highlight} />
@@ -52,7 +55,9 @@ export function Projects() {
     <Section id="projects" title="Projects">
       {professional.length > 0 && (
         <div className="mb-10">
-          <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">Professional</h3>
+          <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">
+            <DecodeText text="Professional" className="" />
+          </h3>
           <div className="grid md:grid-cols-2 gap-4">
             {professional.map((p) => (
               <motion.div key={p.name} variants={fadeUpItem}>
@@ -63,7 +68,9 @@ export function Projects() {
         </div>
       )}
       <div>
-        <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">Side Projects</h3>
+        <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">
+          <DecodeText text="Side Projects" className="" />
+        </h3>
         <div className="grid md:grid-cols-2 gap-4">
           {personal.map((p) => (
             <motion.div key={p.name} variants={fadeUpItem}>

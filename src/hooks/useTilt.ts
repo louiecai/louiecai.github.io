@@ -1,6 +1,7 @@
 // src/hooks/useTilt.ts
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
+import { subscribeTilt } from '../lib/deviceTilt';
 
 export interface TiltHandlers {
   ref: React.RefObject<HTMLDivElement | null>;
@@ -16,6 +17,21 @@ export function useTilt(maxAngle = 6): TiltHandlers {
       ? window.matchMedia('(pointer: coarse)').matches
       : false;
 
+  // Mobile / touch: drive tilt + holographic sheen from the device gyroscope.
+  // Every card reacts together as the phone is tilted (holographic-foil feel).
+  useEffect(() => {
+    if (reduced || !coarse) return;
+    return subscribeTilt((x, y) => {
+      const el = ref.current;
+      if (!el) return;
+      el.style.transform = `perspective(800px) rotateX(${(-y * maxAngle).toFixed(2)}deg) rotateY(${(x * maxAngle).toFixed(2)}deg)`;
+      el.style.setProperty('--mx', `${(50 + x * 50).toFixed(1)}%`);
+      el.style.setProperty('--my', `${(50 + y * 50).toFixed(1)}%`);
+      el.style.setProperty('--glow-opacity', '0.8');
+      el.style.setProperty('--holo-opacity', '0.45');
+    });
+  }, [reduced, coarse, maxAngle]);
+
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reduced || coarse || !ref.current) return;
@@ -28,6 +44,7 @@ export function useTilt(maxAngle = 6): TiltHandlers {
       ref.current.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
       ref.current.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
       ref.current.style.setProperty('--glow-opacity', '1');
+      ref.current.style.setProperty('--holo-opacity', '0.6');
     },
     [reduced, coarse, maxAngle]
   );
@@ -36,6 +53,7 @@ export function useTilt(maxAngle = 6): TiltHandlers {
     if (!ref.current) return;
     ref.current.style.transform = '';
     ref.current.style.setProperty('--glow-opacity', '0');
+    ref.current.style.setProperty('--holo-opacity', '0');
   }, []);
 
   return { ref, onMouseMove, onMouseLeave };

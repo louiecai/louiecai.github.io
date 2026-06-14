@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { getTilt } from '../lib/deviceTilt';
 
 interface Particle {
   x: number;
@@ -17,11 +18,19 @@ interface Ripple {
   y: number;
   r: number;
   alpha: number;
+  speed: number;
+}
+
+interface TrailPoint {
+  x: number;
+  y: number;
+  alpha: number;
 }
 
 const REPEL_RADIUS = 140;
 const CONNECTION_DIST = 110;
 const BASE_SPEED = 0.35;
+const PARALLAX = 16; // px of drift from device tilt / mouse
 
 function createParticle(w: number, h: number): Particle {
   const angle = Math.random() * Math.PI * 2;
@@ -43,7 +52,7 @@ function createParticle(w: number, h: number): Particle {
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
+  const pointerRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
   const animRef = useRef<number>(0);
 
   useEffect(() => {
@@ -55,6 +64,7 @@ export function ParticleField() {
 
     let particles: Particle[] = [];
     const ripples: Ripple[] = [];
+    const trail: TrailPoint[] = [];
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -68,36 +78,51 @@ export function ParticleField() {
       );
     };
 
-    const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
+    const onPointerMove = (e: PointerEvent) => {
+      pointerRef.current = { x: e.clientX, y: e.clientY };
+      // Build a fading trail behind the finger / cursor
+      const last = trail[trail.length - 1];
+      if (!last || Math.hypot(e.clientX - last.x, e.clientY - last.y) > 4) {
+        trail.push({ x: e.clientX, y: e.clientY, alpha: 1 });
+        if (trail.length > 22) trail.shift();
+      }
     };
 
-    const onMouseLeave = () => {
-      mouseRef.current = { x: null, y: null };
+    const onPointerLeave = () => {
+      pointerRef.current = { x: null, y: null };
     };
 
-    const onClick = (e: MouseEvent) => {
+    // Tap / click shockwave — works for both touch and mouse via Pointer Events
+    const onPointerDown = (e: PointerEvent) => {
       const cx = e.clientX;
       const cy = e.clientY;
-      ripples.push({ x: cx, y: cy, r: 0, alpha: 0.6 });
+      pointerRef.current = { x: cx, y: cy };
+      ripples.push({ x: cx, y: cy, r: 0, alpha: 0.7, speed: 5 });
+      ripples.push({ x: cx, y: cy, r: 0, alpha: 0.4, speed: 8 });
 
-      // Give nearby particles a velocity kick away from click point
+      // Kick nearby particles outward from the tap point
       for (const p of particles) {
         const dx = p.x - cx;
         const dy = p.y - cy;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < REPEL_RADIUS && dist > 0) {
           const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
-          p.vx += (dx / dist) * force * 3;
-          p.vy += (dy / dist) * force * 3;
+          p.vx += (dx / dist) * force * 4.5;
+          p.vy += (dy / dist) * force * 4.5;
         }
       }
     };
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const mx = mouseRef.current.x;
-      const my = mouseRef.current.y;
+
+      // Gyro / mouse parallax drift of the whole field
+      const tilt = getTilt();
+      ctx.save();
+      ctx.translate(tilt.x * PARALLAX, tilt.y * PARALLAX);
+
+      const mx = pointerRef.current.x;
+      const my = pointerRef.current.y;
 
       for (const p of particles) {
         if (mx !== null && my !== null) {
@@ -153,7 +178,7 @@ export function ParticleField() {
         }
       }
 
-      // Cursor constellation — brighter lines from cursor to nearby particles
+      // Pointer constellation — brighter lines from finger/cursor to nearby particles
       if (mx !== null && my !== null) {
         for (const p of particles) {
           const dx = p.x - mx;
@@ -171,6 +196,26 @@ export function ParticleField() {
         }
       }
 
+      // Glowing pointer trail (finger drag on mobile, cursor on desktop)
+      for (let i = trail.length - 1; i >= 0; i--) {
+        const t = trail[i];
+        t.alpha -= 0.05;
+        if (t.alpha <= 0) {
+          trail.splice(i, 1);
+          continue;
+        }
+        if (i > 0) {
+          const prev = trail[i - 1];
+          ctx.beginPath();
+          ctx.moveTo(prev.x, prev.y);
+          ctx.lineTo(t.x, t.y);
+          ctx.strokeStyle = `rgba(0,229,255,${(t.alpha * 0.5).toFixed(3)})`;
+          ctx.lineWidth = t.alpha * 3;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+        }
+      }
+
       // Draw particle dots
       for (const p of particles) {
         ctx.beginPath();
@@ -182,10 +227,10 @@ export function ParticleField() {
         ctx.fill();
       }
 
-      // Draw and update ripples
+      // Draw and update ripples (tap / click shockwaves)
       for (let i = ripples.length - 1; i >= 0; i--) {
         const rip = ripples[i];
-        rip.r += 3;
+        rip.r += rip.speed;
         rip.alpha -= 0.018;
         if (rip.alpha <= 0) {
           ripples.splice(i, 1);
@@ -198,6 +243,7 @@ export function ParticleField() {
         ctx.stroke();
       }
 
+      ctx.restore();
       animRef.current = requestAnimationFrame(draw);
     };
 
@@ -211,18 +257,18 @@ export function ParticleField() {
 
     resize();
     window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('click', onClick);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', onPointerLeave);
+    window.addEventListener('pointerdown', onPointerDown, { passive: true });
     document.addEventListener('visibilitychange', onVisibilityChange);
     animRef.current = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseleave', onMouseLeave);
-      window.removeEventListener('click', onClick);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointerdown', onPointerDown);
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [prefersReducedMotion]);

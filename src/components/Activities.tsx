@@ -1,6 +1,7 @@
 import { Section } from './Section';
 import { profile } from '../data/profile';
 import { TiltCard } from './TiltCard';
+import { DecodeText } from './DecodeText';
 import { CountUp } from './CountUp';
 
 export function Activities() {
@@ -10,7 +11,9 @@ export function Activities() {
         {profile.activities.map((act, i) => (
           <TiltCard key={i} className="bg-surface border border-border rounded-lg p-6">
             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-              <h3 className="text-white font-semibold">{act.name}</h3>
+              <h3 className="text-white font-semibold">
+                <DecodeText text={act.name} className="" />
+              </h3>
               {act.highlight && (
                 <span className="text-xs font-mono text-violet border border-violet/30 rounded px-1.5 py-0.5">
                   <CountUp value={act.highlight} />

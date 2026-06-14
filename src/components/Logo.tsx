@@ -22,7 +22,7 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
     >
       {/* Left bracket < */}
       <motion.text
-        x="2"
+        x="7"
         y="27"
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="24"
@@ -39,7 +39,7 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
 
       {/* Initials LC */}
       <motion.text
-        x="18"
+        x="23"
         y="27"
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="22"
@@ -56,7 +56,7 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
 
       {/* Right bracket > */}
       <motion.text
-        x="54"
+        x="51"
         y="27"
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="24"

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useInView } from 'framer-motion';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
 const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&';
@@ -6,11 +7,17 @@ const DURATION = 600; // ms
 
 interface DecodeTextProps {
   text: string;
-  start: boolean;
+  /** If provided, controls when the scramble runs. If omitted, self-triggers on scroll into view. */
+  start?: boolean;
+  className?: string;
 }
 
-export function DecodeText({ text, start }: DecodeTextProps) {
+export function DecodeText({ text, start, className = 'font-mono' }: DecodeTextProps) {
   const reduced = usePrefersReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const selfInView = useInView(ref, { once: true, margin: '-60px' });
+  const active = start ?? selfInView;
+
   const [displayed, setDisplayed] = useState(text);
   const rafRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
@@ -23,7 +30,7 @@ export function DecodeText({ text, start }: DecodeTextProps) {
   }, [text]);
 
   useEffect(() => {
-    if (!start || reduced || hasStarted.current) return;
+    if (!active || reduced || hasStarted.current) return;
     hasStarted.current = true;
     startTimeRef.current = performance.now();
 
@@ -52,7 +59,7 @@ export function DecodeText({ text, start }: DecodeTextProps) {
 
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [start, text, reduced]);
+  }, [active, text, reduced]);
 
-  return <span className="font-mono">{displayed}</span>;
+  return <span ref={ref} className={className}>{displayed}</span>;
 }

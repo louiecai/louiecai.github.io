@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { MagneticButton } from './MagneticButton';
+import { DecodeText } from './DecodeText';
+import { useTiltParallax } from '../hooks/useTiltParallax';
 import { profile } from '../data/profile';
 import { staggerContainer, fadeUpItem } from '../lib/variants';
 
@@ -11,6 +13,7 @@ export function Hero() {
 
   const currentRole = profile.experience[0].role;
   const currentCompany = profile.experience[0].company;
+  const parallaxRef = useTiltParallax<HTMLDivElement>(14, true);
 
   return (
     <div
@@ -18,7 +21,8 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <motion.div
-        className="relative z-10 text-center max-w-3xl mx-auto px-4"
+        ref={parallaxRef}
+        className="relative z-10 text-center max-w-3xl mx-auto px-4 will-change-transform"
         variants={staggerContainer}
         initial="hidden"
         animate="show"
@@ -28,7 +32,7 @@ export function Hero() {
           variants={fadeUpItem}
           className="font-mono text-cyan text-sm tracking-widest mb-4 uppercase"
         >
-          Hello, I'm
+          <DecodeText text="Hello, I'm" start className="" />
         </motion.p>
 
         {/* Name with sheen */}
@@ -36,7 +40,7 @@ export function Hero() {
           variants={fadeUpItem}
           className="text-5xl md:text-7xl font-bold mb-4"
         >
-          <span className="text-sheen">{profile.name}</span>
+          <DecodeText text={profile.name} start className="text-sheen" />
         </motion.h1>
 
         {/* Role */}

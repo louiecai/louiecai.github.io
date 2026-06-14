@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Section } from './Section';
+import { DecodeText } from './DecodeText';
 import { profile } from '../data/profile';
 import { fadeUpItem, popItem } from '../lib/variants';
 
@@ -16,7 +17,9 @@ export function Experience() {
             />
 
             <div className="flex flex-wrap items-baseline gap-2 mb-1">
-              <h3 className="text-white font-semibold text-lg">{job.company}</h3>
+              <h3 className="text-white font-semibold text-lg">
+                <DecodeText text={job.company} className="" />
+              </h3>
             </div>
             <p className="text-muted text-sm mb-1">{job.role}</p>
             <p className="font-mono text-xs text-muted mb-3">{job.period}</p>
