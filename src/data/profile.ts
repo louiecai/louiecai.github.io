@@ -65,7 +65,7 @@ export const profile: Profile = {
   location: 'Seattle, WA',
   email: 'me@louiecai.com',
   phone: '(475) 298-7585',
-  tagline: 'Software Engineer at Stripe. I build systems that scale.',
+  tagline: "Passionate about software that's fast, reliable, and delightful to use.",
   resumeUrl: '/resume.pdf',
   socials: [
     { label: 'GitHub',    url: 'https://github.com/louiecai',               icon: 'github'   },
