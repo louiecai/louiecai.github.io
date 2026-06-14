@@ -1,10 +1,13 @@
+import { motion } from 'framer-motion';
 import { Section } from './Section';
 import { profile } from '../data/profile';
 import type { ProjectItem } from '../data/profile';
+import { TiltCard } from './TiltCard';
+import { fadeUpItem } from '../lib/variants';
 
 function ProjectCard({ project }: { project: ProjectItem }) {
   return (
-    <div className="bg-surface border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
+    <TiltCard className="bg-surface border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
       <div className="flex items-start justify-between gap-2">
         <h3 className="text-white font-semibold">{project.name}</h3>
         {project.highlight && (
@@ -36,7 +39,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           ))}
         </div>
       )}
-    </div>
+    </TiltCard>
   );
 }
 
@@ -51,7 +54,9 @@ export function Projects() {
           <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">Professional</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {professional.map((p) => (
-              <ProjectCard key={p.name} project={p} />
+              <motion.div key={p.name} variants={fadeUpItem}>
+                <ProjectCard project={p} />
+              </motion.div>
             ))}
           </div>
         </div>
@@ -60,7 +65,9 @@ export function Projects() {
         <h3 className="text-sm font-mono text-muted uppercase tracking-widest mb-4">Side Projects</h3>
         <div className="grid md:grid-cols-2 gap-4">
           {personal.map((p) => (
-            <ProjectCard key={p.name} project={p} />
+            <motion.div key={p.name} variants={fadeUpItem}>
+              <ProjectCard project={p} />
+            </motion.div>
           ))}
         </div>
       </div>

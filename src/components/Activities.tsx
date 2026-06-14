@@ -1,12 +1,13 @@
 import { Section } from './Section';
 import { profile } from '../data/profile';
+import { TiltCard } from './TiltCard';
 
 export function Activities() {
   return (
     <Section id="activities" title="Activities">
       <div className="space-y-4">
         {profile.activities.map((act, i) => (
-          <div key={i} className="bg-surface border border-border rounded-lg p-6">
+          <TiltCard key={i} className="bg-surface border border-border rounded-lg p-6">
             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
               <h3 className="text-white font-semibold">{act.name}</h3>
               {act.highlight && (
@@ -24,7 +25,7 @@ export function Activities() {
                 </li>
               ))}
             </ul>
-          </div>
+          </TiltCard>
         ))}
       </div>
     </Section>
