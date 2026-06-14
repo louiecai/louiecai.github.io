@@ -4,6 +4,7 @@ import { profile } from '../data/profile';
 import type { ProjectItem } from '../data/profile';
 import { TiltCard } from './TiltCard';
 import { fadeUpItem } from '../lib/variants';
+import { CountUp } from './CountUp';
 
 function ProjectCard({ project }: { project: ProjectItem }) {
   return (
@@ -12,7 +13,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         <h3 className="text-white font-semibold">{project.name}</h3>
         {project.highlight && (
           <span className="text-xs font-mono text-cyan border border-cyan/30 rounded px-1.5 py-0.5 whitespace-nowrap">
-            {project.highlight}
+            <CountUp value={project.highlight} />
           </span>
         )}
       </div>

@@ -1,6 +1,7 @@
 import { Section } from './Section';
 import { profile } from '../data/profile';
 import { TiltCard } from './TiltCard';
+import { CountUp } from './CountUp';
 
 export function Activities() {
   return (
@@ -12,7 +13,7 @@ export function Activities() {
               <h3 className="text-white font-semibold">{act.name}</h3>
               {act.highlight && (
                 <span className="text-xs font-mono text-violet border border-violet/30 rounded px-1.5 py-0.5">
-                  {act.highlight}
+                  <CountUp value={act.highlight} />
                 </span>
               )}
             </div>
