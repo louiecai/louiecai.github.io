@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useActiveSection } from '../hooks/useActiveSection';
+import { Logo } from './Logo';
 
 const SECTION_IDS = ['about', 'experience', 'projects', 'skills', 'activities', 'education'] as const;
 const LABELS: Record<string, string> = {
@@ -45,7 +46,7 @@ export function Nav() {
               className="font-mono text-cyan font-bold tracking-widest text-sm hover:text-white transition-colors"
               aria-label="Back to top"
             >
-              LC
+              <Logo />
             </button>
 
             {/* Desktop nav */}
