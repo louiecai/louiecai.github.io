@@ -29,9 +29,8 @@
     background: linear-gradient(
       90deg,
       #00e5ff 0%,
-      #b388ff 40%,
-      #00e5ff 60%,
-      #b388ff 100%
+      #b388ff 50%,
+      #00e5ff 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;

@@ -1,3 +1,4 @@
+import { ParticleField } from './components/ParticleField';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { Experience } from './components/Experience';
@@ -10,6 +11,7 @@ import { Footer } from './components/Footer';
 function App() {
   return (
     <>
+      <ParticleField />
       <Nav />
       <main>
         <Hero />

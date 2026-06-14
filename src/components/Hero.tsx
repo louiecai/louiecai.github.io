@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { ParticleField } from './ParticleField';
 import { MagneticButton } from './MagneticButton';
 import { profile } from '../data/profile';
 import { staggerContainer, fadeUpItem } from '../lib/variants';
@@ -18,8 +17,6 @@ export function Hero() {
       id="about"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      <ParticleField />
-
       <motion.div
         className="relative z-10 text-center max-w-3xl mx-auto px-4"
         variants={staggerContainer}
@@ -54,7 +51,7 @@ export function Hero() {
         </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={fadeUpItem} className="flex flex-wrap gap-4 justify-center mb-10">
+        <motion.div variants={fadeUpItem} className="flex flex-wrap gap-4 justify-center items-center mb-10">
           <MagneticButton>
             <button
               onClick={scrollToWork}

@@ -69,8 +69,7 @@ export function ParticleField() {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      mouseRef.current = { x: e.clientX, y: e.clientY };
     };
 
     const onMouseLeave = () => {
@@ -78,8 +77,8 @@ export function ParticleField() {
     };
 
     const onClick = (e: MouseEvent) => {
-      const cx = e.offsetX;
-      const cy = e.offsetY;
+      const cx = e.clientX;
+      const cy = e.clientY;
       ripples.push({ x: cx, y: cy, r: 0, alpha: 0.6 });
 
       // Give nearby particles a velocity kick away from click point
@@ -212,18 +211,18 @@ export function ParticleField() {
 
     resize();
     window.addEventListener('resize', resize);
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', onMouseLeave);
-    canvas.addEventListener('click', onClick);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseleave', onMouseLeave);
+    window.addEventListener('click', onClick);
     document.addEventListener('visibilitychange', onVisibilityChange);
     animRef.current = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('resize', resize);
-      canvas.removeEventListener('mousemove', onMouseMove);
-      canvas.removeEventListener('mouseleave', onMouseLeave);
-      canvas.removeEventListener('click', onClick);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('click', onClick);
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [prefersReducedMotion]);
@@ -231,7 +230,7 @@ export function ParticleField() {
   if (prefersReducedMotion) {
     return (
       <div
-        className="absolute inset-0 -z-10"
+        className="fixed inset-0 -z-10"
         style={{
           background:
             'radial-gradient(ellipse at 25% 50%, rgba(0,229,255,0.07) 0%, transparent 55%), ' +
@@ -245,7 +244,7 @@ export function ParticleField() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 -z-10 w-full h-full"
+      className="fixed inset-0 -z-10 w-full h-full pointer-events-none"
       aria-hidden="true"
     />
   );

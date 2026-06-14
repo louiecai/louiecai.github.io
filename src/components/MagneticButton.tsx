@@ -13,7 +13,7 @@ export function MagneticButton({ children, className = '' }: MagneticButtonProps
   return (
     <motion.div
       ref={ref as React.Ref<HTMLDivElement>}
-      style={{ x, y, display: 'inline-block' }}
+      style={{ x, y, display: 'inline-flex' }}
       onMouseMove={onMouseMove as unknown as React.MouseEventHandler<HTMLDivElement>}
       onMouseLeave={onMouseLeave}
       className={className}
