@@ -2,16 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { Logo } from './Logo';
-
-const SECTION_IDS = ['about', 'experience', 'projects', 'skills', 'activities', 'education'] as const;
-const LABELS: Record<string, string> = {
-  about: 'About',
-  experience: 'Experience',
-  projects: 'Projects',
-  skills: 'Skills',
-  activities: 'Activities',
-  education: 'Education',
-};
+import { SECTION_IDS, SECTION_LABELS } from '../lib/sections';
 
 export function Nav() {
   const activeSection = useActiveSection([...SECTION_IDS]);
@@ -59,7 +50,7 @@ export function Nav() {
                       activeSection === id ? 'text-cyan' : 'text-muted hover:text-white'
                     }`}
                   >
-                    {LABELS[id]}
+                    {SECTION_LABELS[id]}
                   </button>
                 </li>
               ))}
@@ -96,7 +87,7 @@ export function Nav() {
                         activeSection === id ? 'text-cyan' : 'text-muted hover:text-white'
                       }`}
                     >
-                      {LABELS[id]}
+                      {SECTION_LABELS[id]}
                     </button>
                   </li>
                 ))}

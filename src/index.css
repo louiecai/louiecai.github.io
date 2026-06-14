@@ -50,3 +50,13 @@
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
+
+@keyframes aurora-1 {
+  0%   { transform: translate(0%, 0%) scale(1); }
+  100% { transform: translate(8%, 12%) scale(1.15); }
+}
+
+@keyframes aurora-2 {
+  0%   { transform: translate(0%, 0%) scale(1.1); }
+  100% { transform: translate(-10%, 8%) scale(0.9); }
+}

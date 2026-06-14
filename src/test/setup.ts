@@ -23,6 +23,8 @@ vi.mock('framer-motion', async () => {
       scrollY: { ...motionValueStub },
       scrollYProgress: { ...motionValueStub },
     })),
+    useVelocity: vi.fn(() => ({ ...motionValueStub })),
+    useMotionValueEvent: vi.fn(),
   };
 });
 
