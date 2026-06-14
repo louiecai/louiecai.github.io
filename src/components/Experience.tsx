@@ -1,14 +1,19 @@
+import { motion } from 'framer-motion';
 import { Section } from './Section';
 import { profile } from '../data/profile';
+import { fadeUpItem, popItem } from '../lib/variants';
 
 export function Experience() {
   return (
     <Section id="experience" title="Experience">
       <div className="relative border-l border-border pl-8 space-y-12">
         {profile.experience.map((job, i) => (
-          <div key={i} className="relative">
+          <motion.div key={i} variants={fadeUpItem} className="relative">
             {/* Timeline dot */}
-            <span className="absolute -left-[2.15rem] top-1.5 w-3 h-3 rounded-full bg-cyan border-2 border-bg" />
+            <motion.span
+              variants={popItem}
+              className="absolute -left-[2.15rem] top-1.5 w-3 h-3 rounded-full bg-cyan border-2 border-bg"
+            />
 
             <div className="flex flex-wrap items-baseline gap-2 mb-1">
               <h3 className="text-white font-semibold text-lg">{job.company}</h3>
@@ -23,7 +28,7 @@ export function Experience() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         ))}
       </div>
     </Section>

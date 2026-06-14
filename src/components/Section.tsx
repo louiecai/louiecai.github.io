@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { staggerContainer, fadeUpItem } from '../lib/variants';
 
 interface SectionProps {
   id: string;
@@ -16,13 +17,16 @@ export function Section({ id, title, children }: SectionProps) {
   return (
     <section id={id} ref={ref} className="py-20 max-w-5xl mx-auto px-4">
       <motion.div
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-        animate={prefersReducedMotion ? {} : (inView ? { opacity: 1, y: 0 } : {})}
-        transition={{ duration: 0.6 }}
+        variants={prefersReducedMotion ? undefined : staggerContainer}
+        initial={prefersReducedMotion ? false : 'hidden'}
+        animate={prefersReducedMotion ? {} : (inView ? 'show' : 'hidden')}
       >
-        <h2 className="text-2xl font-bold mb-10 pl-4 border-l-2 border-cyan text-white">
+        <motion.h2
+          variants={prefersReducedMotion ? undefined : fadeUpItem}
+          className="text-2xl font-bold mb-10 pl-4 border-l-2 border-cyan text-white"
+        >
           {title}
-        </h2>
+        </motion.h2>
         {children}
       </motion.div>
     </section>
