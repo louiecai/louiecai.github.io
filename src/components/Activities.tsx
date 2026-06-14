@@ -11,7 +11,7 @@ export function Activities() {
         {profile.activities.map((act, i) => (
           <TiltCard key={i} className="bg-surface border border-border rounded-lg p-6">
             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-              <h3 className="text-white font-semibold">
+              <h3 className="text-fg font-semibold">
                 <DecodeText text={act.name} className="" />
               </h3>
               {act.highlight && (

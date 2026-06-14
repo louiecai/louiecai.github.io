@@ -17,7 +17,7 @@ export function Experience() {
             />
 
             <div className="flex flex-wrap items-baseline gap-2 mb-1">
-              <h3 className="text-white font-semibold text-lg">
+              <h3 className="text-fg font-semibold text-lg">
                 <DecodeText text={job.company} className="" />
               </h3>
             </div>

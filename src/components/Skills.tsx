@@ -18,7 +18,7 @@ export function Skills() {
                 <motion.span
                   key={skill}
                   variants={popItem}
-                  className="text-sm font-mono text-muted border border-border rounded px-3 py-1 hover:border-cyan/50 hover:text-white transition-colors"
+                  className="text-sm font-mono text-muted border border-border rounded px-3 py-1 hover:border-cyan/50 hover:text-fg transition-colors"
                 >
                   {skill}
                 </motion.span>

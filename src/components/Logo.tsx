@@ -27,10 +27,10 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="24"
         fontWeight="700"
-        fill="#00e5ff"
+        fill="rgb(var(--c-cyan))"
         variants={{
-          rest: { x: 0, fill: '#00e5ff' },
-          hover: { x: -3, fill: '#ffffff' },
+          rest: { x: 0 },
+          hover: { x: -3 },
         }}
         transition={{ duration: 0.2 }}
       >
@@ -38,21 +38,16 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
       </motion.text>
 
       {/* Initials LC */}
-      <motion.text
+      <text
         x="23"
         y="27"
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="22"
         fontWeight="700"
-        fill="#00e5ff"
-        variants={{
-          rest: { fill: '#00e5ff' },
-          hover: { fill: '#ffffff' },
-        }}
-        transition={{ duration: 0.15 }}
+        fill="rgb(var(--c-cyan))"
       >
         LC
-      </motion.text>
+      </text>
 
       {/* Right bracket > */}
       <motion.text
@@ -61,10 +56,10 @@ export function Logo({ size = 36, className = '' }: LogoProps) {
         fontFamily="'JetBrains Mono', 'Fira Code', monospace"
         fontSize="24"
         fontWeight="700"
-        fill="#00e5ff"
+        fill="rgb(var(--c-cyan))"
         variants={{
-          rest: { x: 0, fill: '#00e5ff' },
-          hover: { x: 3, fill: '#ffffff' },
+          rest: { x: 0 },
+          hover: { x: 3 },
         }}
         transition={{ duration: 0.2 }}
       >

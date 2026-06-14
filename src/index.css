@@ -3,24 +3,46 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Semantic theme tokens as space-separated RGB triples (dark = default) */
+    --c-bg: 10 10 15;
+    --c-surface: 17 17 25;
+    --c-border: 30 30 46;
+    --c-muted: 136 136 170;
+    --c-fg: 240 240 245;
+    --c-cyan: 0 229 255;
+    --c-violet: 179 136 255;
+  }
+
+  html.light {
+    --c-bg: 247 248 250;
+    --c-surface: 255 255 255;
+    --c-border: 222 226 233;
+    --c-muted: 90 96 116;
+    --c-fg: 17 20 31;
+    --c-cyan: 8 145 178;    /* deeper teal for contrast on white */
+    --c-violet: 124 58 237; /* deeper purple for contrast on white */
+  }
+
   html {
     scroll-behavior: smooth;
-    background-color: #0a0a0f;
-    color: #f0f0f5;
+    background-color: rgb(var(--c-bg));
+    color: rgb(var(--c-fg));
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0a0f;
+    background: rgb(var(--c-bg));
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e1e2e;
+    background: rgb(var(--c-border));
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 229, 255, 0.25);
+    background: rgb(var(--c-cyan) / 0.25);
   }
 }
 
@@ -28,9 +50,9 @@
   .text-sheen {
     background: linear-gradient(
       90deg,
-      #00e5ff 0%,
-      #b388ff 50%,
-      #00e5ff 100%
+      rgb(var(--c-cyan)) 0%,
+      rgb(var(--c-violet)) 50%,
+      rgb(var(--c-cyan)) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;

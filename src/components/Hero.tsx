@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { MagneticButton } from './MagneticButton';
 import { DecodeText } from './DecodeText';
-import { useTiltParallax } from '../hooks/useTiltParallax';
 import { profile } from '../data/profile';
 import { staggerContainer, fadeUpItem } from '../lib/variants';
 
@@ -13,7 +12,6 @@ export function Hero() {
 
   const currentRole = profile.experience[0].role;
   const currentCompany = profile.experience[0].company;
-  const parallaxRef = useTiltParallax<HTMLDivElement>(14, true);
 
   return (
     <div
@@ -21,8 +19,7 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <motion.div
-        ref={parallaxRef}
-        className="relative z-10 text-center max-w-3xl mx-auto px-4 will-change-transform"
+        className="relative z-10 text-center max-w-3xl mx-auto px-4"
         variants={staggerContainer}
         initial="hidden"
         animate="show"
@@ -46,7 +43,7 @@ export function Hero() {
         {/* Role */}
         <motion.p variants={fadeUpItem} className="text-xl md:text-2xl text-muted mb-6">
           {currentRole} <span className="text-violet">@</span>{' '}
-          <span className="text-white font-semibold">{currentCompany}</span>
+          <span className="text-fg font-semibold">{currentCompany}</span>
         </motion.p>
 
         {/* Tagline */}

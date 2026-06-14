@@ -16,8 +16,10 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
       onMouseLeave={onMouseLeave}
       className={`relative ${className}`}
       style={{
-        transition: 'transform 0.1s ease',
+        transition: 'transform 0.1s ease, box-shadow 0.3s ease',
         willChange: 'transform',
+        transformStyle: 'preserve-3d',
+        boxShadow: '0 24px 48px rgb(var(--c-cyan) / calc(var(--glow-opacity, 0) * 0.20))',
         // CSS vars for the spotlight glow + holographic sheen
         ['--mx' as string]: '50%',
         ['--my' as string]: '50%',
@@ -37,7 +39,7 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
           opacity: 'var(--glow-opacity)',
           transition: 'opacity 0.3s ease',
           background:
-            'radial-gradient(circle at var(--mx) var(--my), rgba(0,229,255,0.12), transparent 60%)',
+            'radial-gradient(circle at var(--mx) var(--my), rgb(var(--c-cyan) / 0.14), transparent 60%)',
         }}
       />
       {/* Holographic foil sheen — shifts with cursor / device tilt */}
@@ -54,7 +56,7 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
           backgroundSize: '200% 200%',
           backgroundPosition: 'var(--mx) var(--my)',
           background:
-            'linear-gradient(115deg, transparent 18%, rgba(0,229,255,0.22) 38%, rgba(179,136,255,0.22) 50%, rgba(255,255,255,0.18) 62%, transparent 82%)',
+            'linear-gradient(115deg, transparent 18%, rgb(var(--c-cyan) / 0.22) 38%, rgb(var(--c-violet) / 0.22) 50%, rgba(255,255,255,0.18) 62%, transparent 82%)',
         }}
       />
     </div>

@@ -21,7 +21,7 @@ export function Section({ id, title, children }: SectionProps) {
       <motion.div
         className="w-full h-px mb-12 origin-left"
         style={{
-          background: 'linear-gradient(to right, #00e5ff, rgba(179,136,255,0.4), transparent)',
+          background: 'linear-gradient(to right, rgb(var(--c-cyan)), rgb(var(--c-violet) / 0.4), transparent)',
         }}
         initial={{ scaleX: 0 }}
         animate={prefersReducedMotion ? { scaleX: 1 } : (inView ? { scaleX: 1 } : { scaleX: 0 })}
@@ -34,7 +34,7 @@ export function Section({ id, title, children }: SectionProps) {
       >
         <motion.h2
           variants={prefersReducedMotion ? undefined : fadeUpItem}
-          className="text-2xl font-bold mb-10 pl-4 border-l-2 border-cyan text-white"
+          className="text-2xl font-bold mb-10 pl-4 border-l-2 border-cyan text-fg"
         >
           <DecodeText text={title} start={inView} />
         </motion.h2>

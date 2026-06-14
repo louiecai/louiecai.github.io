@@ -21,12 +21,26 @@ function onMouse(e: MouseEvent) {
   ty = clamp((e.clientY / window.innerHeight - 0.5) * 2);
 }
 
+// Calibrate to the first reading so whatever angle the phone is held at becomes
+// neutral; tilting from there gives a symmetric, responsive range. A fixed
+// neutral saturates the clamp because portrait phones sit near beta ~70-90°.
+let baseBeta: number | null = null;
+let baseGamma: number | null = null;
+
 function onOrient(e: DeviceOrientationEvent) {
   if (e.gamma == null || e.beta == null) return;
-  // gamma: left/right tilt [-90,90]; beta: front/back tilt [-180,180].
-  // ~45° is a natural holding angle, treated as neutral on the vertical axis.
-  tx = clamp(e.gamma / 35);
-  ty = clamp((e.beta - 45) / 35);
+  if (baseBeta == null || baseGamma == null) {
+    baseBeta = e.beta;
+    baseGamma = e.gamma;
+  }
+  // gamma: left/right tilt; beta: front/back tilt. ~22° = full range.
+  tx = clamp((e.gamma - baseGamma) / 22);
+  ty = clamp((e.beta - baseBeta) / 22);
+}
+
+function resetTiltBaseline() {
+  baseBeta = null;
+  baseGamma = null;
 }
 
 function loop() {
@@ -71,6 +85,8 @@ function ensureStarted() {
   window.addEventListener('mousemove', onMouse, { passive: true });
   // Non-iOS (Android) delivers deviceorientation without a permission prompt.
   window.addEventListener('deviceorientation', onOrient, { passive: true });
+  // Recalibrate neutral when the device is rotated (portrait <-> landscape).
+  window.addEventListener('orientationchange', resetTiltBaseline);
   bindGesture(); // request iOS permission on first user gesture
   rafId = requestAnimationFrame(loop);
 }
@@ -89,6 +105,7 @@ export function subscribeTilt(cb: TiltListener): () => void {
       started = false;
       window.removeEventListener('mousemove', onMouse);
       window.removeEventListener('deviceorientation', onOrient);
+      window.removeEventListener('orientationchange', resetTiltBaseline);
     }
   };
 }

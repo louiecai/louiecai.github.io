@@ -4,7 +4,7 @@ import { useTiltParallax } from '../hooks/useTiltParallax';
 
 export function AuroraBackground() {
   const reduced = usePrefersReducedMotion();
-  const parallaxRef = useTiltParallax<HTMLDivElement>(28);
+  const parallaxRef = useTiltParallax<HTMLDivElement>(40);
 
   return (
     <div
@@ -21,7 +21,7 @@ export function AuroraBackground() {
           width: '50vw',
           height: '50vw',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,229,255,0.10) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgb(var(--c-cyan) / 0.10) 0%, transparent 70%)',
           filter: 'blur(40px)',
           animation: reduced ? 'none' : 'aurora-1 22s ease-in-out infinite alternate',
         }}
@@ -35,7 +35,7 @@ export function AuroraBackground() {
           width: '55vw',
           height: '55vw',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(179,136,255,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgb(var(--c-violet) / 0.08) 0%, transparent 70%)',
           filter: 'blur(50px)',
           animation: reduced ? 'none' : 'aurora-2 28s ease-in-out infinite alternate',
         }}
@@ -49,7 +49,7 @@ export function AuroraBackground() {
           width: '40vw',
           height: '40vw',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(0,229,255,0.05) 0%, rgba(179,136,255,0.04) 50%, transparent 70%)',
+          background: 'radial-gradient(circle, rgb(var(--c-cyan) / 0.05) 0%, rgb(var(--c-violet) / 0.04) 50%, transparent 70%)',
           filter: 'blur(60px)',
           animation: reduced ? 'none' : 'aurora-1 35s ease-in-out infinite alternate-reverse',
         }}

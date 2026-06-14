@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { getTilt } from '../lib/deviceTilt';
+import { readAccents } from '../lib/themeColors';
 
 interface Particle {
   x: number;
@@ -30,7 +31,7 @@ interface TrailPoint {
 const REPEL_RADIUS = 140;
 const CONNECTION_DIST = 110;
 const BASE_SPEED = 0.35;
-const PARALLAX = 16; // px of drift from device tilt / mouse
+const PARALLAX = 22; // px of drift from device tilt / mouse
 
 function createParticle(w: number, h: number): Particle {
   const angle = Math.random() * Math.PI * 2;
@@ -45,7 +46,7 @@ function createParticle(w: number, h: number): Particle {
     baseVx: vx,
     baseVy: vy,
     radius: 1.5 + Math.random() * 1.5,
-    color: Math.random() < 0.7 ? '#00e5ff' : '#b388ff',
+    color: Math.random() < 0.7 ? 'cyan' : 'violet',
   };
 }
 
@@ -65,6 +66,13 @@ export function ParticleField() {
     let particles: Particle[] = [];
     const ripples: Ripple[] = [];
     const trail: TrailPoint[] = [];
+
+    // Accent colors read from CSS theme vars; refreshed when the theme changes.
+    let accents = readAccents();
+    const onThemeChange = () => {
+      accents = readAccents();
+    };
+    window.addEventListener('themechange', onThemeChange);
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -160,18 +168,14 @@ export function ParticleField() {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
-            const alpha = (1 - dist / CONNECTION_DIST) * 0.25;
-            const lineColor =
-              particles[i].color === particles[j].color
-                ? particles[i].color
-                : '#00e5ff';
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.25 * accents.alphaBoost;
+            const bothViolet =
+              particles[i].color === 'violet' && particles[j].color === 'violet';
+            const rgb = bothViolet ? accents.violet : accents.cyan;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle =
-              lineColor === '#00e5ff'
-                ? `rgba(0,229,255,${alpha})`
-                : `rgba(179,136,255,${alpha})`;
+            ctx.strokeStyle = `rgba(${rgb},${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -185,9 +189,9 @@ export function ParticleField() {
           const dy = p.y - my;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
-            const alpha = (1 - dist / CONNECTION_DIST) * 0.5;
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.5 * accents.alphaBoost;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0,229,255,${alpha.toFixed(3)})`;
+            ctx.strokeStyle = `rgba(${accents.cyan},${alpha.toFixed(3)})`;
             ctx.lineWidth = 1;
             ctx.moveTo(mx, my);
             ctx.lineTo(p.x, p.y);
@@ -209,7 +213,7 @@ export function ParticleField() {
           ctx.beginPath();
           ctx.moveTo(prev.x, prev.y);
           ctx.lineTo(t.x, t.y);
-          ctx.strokeStyle = `rgba(0,229,255,${(t.alpha * 0.5).toFixed(3)})`;
+          ctx.strokeStyle = `rgba(${accents.cyan},${(t.alpha * 0.5).toFixed(3)})`;
           ctx.lineWidth = t.alpha * 3;
           ctx.lineCap = 'round';
           ctx.stroke();
@@ -220,10 +224,8 @@ export function ParticleField() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        const isViolet = p.color === '#b388ff';
-        ctx.fillStyle = isViolet
-          ? 'rgba(179,136,255,0.55)'
-          : 'rgba(0,229,255,0.55)';
+        const rgb = p.color === 'violet' ? accents.violet : accents.cyan;
+        ctx.fillStyle = `rgba(${rgb},${Math.min(1, 0.55 * accents.alphaBoost)})`;
         ctx.fill();
       }
 
@@ -238,7 +240,7 @@ export function ParticleField() {
         }
         ctx.beginPath();
         ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0,229,255,${rip.alpha.toFixed(3)})`;
+        ctx.strokeStyle = `rgba(${accents.cyan},${rip.alpha.toFixed(3)})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
@@ -269,6 +271,7 @@ export function ParticleField() {
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerleave', onPointerLeave);
       window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('themechange', onThemeChange);
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [prefersReducedMotion]);
@@ -279,8 +282,8 @@ export function ParticleField() {
         className="fixed inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(ellipse at 25% 50%, rgba(0,229,255,0.07) 0%, transparent 55%), ' +
-            'radial-gradient(ellipse at 75% 30%, rgba(179,136,255,0.07) 0%, transparent 55%)',
+            'radial-gradient(ellipse at 25% 50%, rgb(var(--c-cyan) / 0.07) 0%, transparent 55%), ' +
+            'radial-gradient(ellipse at 75% 30%, rgb(var(--c-violet) / 0.07) 0%, transparent 55%)',
         }}
         aria-hidden="true"
       />

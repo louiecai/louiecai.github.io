@@ -11,7 +11,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
   return (
     <TiltCard className="bg-surface border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-white font-semibold">
+        <h3 className="text-fg font-semibold">
           <DecodeText text={project.name} className="" />
         </h3>
         {project.highlight && (
@@ -36,7 +36,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-cyan hover:text-white transition-colors font-mono"
+              className="text-xs text-cyan hover:text-fg transition-colors font-mono"
             >
               {link.label} →
             </a>

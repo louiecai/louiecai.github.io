@@ -32,7 +32,7 @@ export function ScrollRail() {
           style={{
             scaleY: reduced ? 1 : scaleY,
             height: '100%',
-            background: 'linear-gradient(to bottom, #00e5ff, #b388ff)',
+            background: 'linear-gradient(to bottom, rgb(var(--c-cyan)), rgb(var(--c-violet)))',
           }}
         />
 
@@ -53,8 +53,8 @@ export function ScrollRail() {
                   width: isActive ? '8px' : '5px',
                   height: isActive ? '8px' : '5px',
                   borderRadius: '50%',
-                  background: isActive ? '#00e5ff' : '#8888aa',
-                  boxShadow: isActive ? '0 0 6px 2px rgba(0,229,255,0.6)' : 'none',
+                  background: isActive ? 'rgb(var(--c-cyan))' : 'rgb(var(--c-muted))',
+                  boxShadow: isActive ? '0 0 6px 2px rgb(var(--c-cyan) / 0.6)' : 'none',
                   transition: 'all 0.2s ease',
                 }}
               />

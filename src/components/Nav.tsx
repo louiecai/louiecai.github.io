@@ -31,10 +31,10 @@ export function Nav() {
           className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur border-b border-border"
           aria-label="Main navigation"
         >
-          <div className="max-w-5xl mx-auto px-4 flex items-center justify-between h-14">
+          <div className="max-w-5xl mx-auto px-4 pr-14 md:pr-4 flex items-center justify-between h-14">
             <button
               onClick={() => scrollTo('about')}
-              className="font-mono text-cyan font-bold tracking-widest text-sm hover:text-white transition-colors"
+              className="font-mono text-cyan font-bold tracking-widest text-sm hover:text-fg transition-colors"
               aria-label="Back to top"
             >
               <Logo />
@@ -47,7 +47,7 @@ export function Nav() {
                   <button
                     onClick={() => scrollTo(id)}
                     className={`text-sm font-medium transition-colors ${
-                      activeSection === id ? 'text-cyan' : 'text-muted hover:text-white'
+                      activeSection === id ? 'text-cyan' : 'text-muted hover:text-fg'
                     }`}
                   >
                     {SECTION_LABELS[id]}
@@ -58,7 +58,7 @@ export function Nav() {
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden flex flex-col gap-1 p-1 text-muted hover:text-white transition-colors"
+              className="md:hidden flex flex-col gap-1 p-1 text-muted hover:text-fg transition-colors"
               onClick={() => setMenuOpen((o) => !o)}
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
@@ -84,7 +84,7 @@ export function Nav() {
                     <button
                       onClick={() => scrollTo(id)}
                       className={`block w-full text-left py-2 text-sm font-medium transition-colors ${
-                        activeSection === id ? 'text-cyan' : 'text-muted hover:text-white'
+                        activeSection === id ? 'text-cyan' : 'text-muted hover:text-fg'
                       }`}
                     >
                       {SECTION_LABELS[id]}

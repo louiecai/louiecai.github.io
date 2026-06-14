@@ -4,12 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0a0a0f',
-        surface: '#111119',
-        border: '#1e1e2e',
-        cyan: '#00e5ff',
-        violet: '#b388ff',
-        muted: '#8888aa',
+        bg: 'rgb(var(--c-bg) / <alpha-value>)',
+        surface: 'rgb(var(--c-surface) / <alpha-value>)',
+        border: 'rgb(var(--c-border) / <alpha-value>)',
+        cyan: 'rgb(var(--c-cyan) / <alpha-value>)',
+        violet: 'rgb(var(--c-violet) / <alpha-value>)',
+        muted: 'rgb(var(--c-muted) / <alpha-value>)',
+        fg: 'rgb(var(--c-fg) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
