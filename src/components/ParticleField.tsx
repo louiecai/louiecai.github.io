@@ -9,6 +9,14 @@ interface Particle {
   baseVx: number;
   baseVy: number;
   radius: number;
+  color: string;
+}
+
+interface Ripple {
+  x: number;
+  y: number;
+  r: number;
+  alpha: number;
 }
 
 const REPEL_RADIUS = 140;
@@ -28,13 +36,14 @@ function createParticle(w: number, h: number): Particle {
     baseVx: vx,
     baseVy: vy,
     radius: 1.5 + Math.random() * 1.5,
+    color: Math.random() < 0.7 ? '#00e5ff' : '#b388ff',
   };
 }
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
   const animRef = useRef<number>(0);
 
   useEffect(() => {
@@ -45,6 +54,7 @@ export function ParticleField() {
     if (!ctx) return;
 
     let particles: Particle[] = [];
+    const ripples: Ripple[] = [];
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -63,20 +73,47 @@ export function ParticleField() {
       mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     };
 
+    const onMouseLeave = () => {
+      mouseRef.current = { x: null, y: null };
+    };
+
+    const onClick = (e: MouseEvent) => {
+      const cx = e.offsetX;
+      const cy = e.offsetY;
+      ripples.push({ x: cx, y: cy, r: 0, alpha: 0.6 });
+
+      // Give nearby particles a velocity kick away from click point
+      for (const p of particles) {
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REPEL_RADIUS && dist > 0) {
+          const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
+          p.vx += (dx / dist) * force * 3;
+          p.vy += (dy / dist) * force * 3;
+        }
+      }
+    };
+
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const mx = mouseRef.current.x;
       const my = mouseRef.current.y;
 
       for (const p of particles) {
-        const dx = p.x - mx;
-        const dy = p.y - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (mx !== null && my !== null) {
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < REPEL_RADIUS && dist > 0) {
-          const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
-          p.vx = p.baseVx + (dx / dist) * force * 2.5;
-          p.vy = p.baseVy + (dy / dist) * force * 2.5;
+          if (dist < REPEL_RADIUS && dist > 0) {
+            const force = (REPEL_RADIUS - dist) / REPEL_RADIUS;
+            p.vx = p.baseVx + (dx / dist) * force * 2.5;
+            p.vy = p.baseVy + (dy / dist) * force * 2.5;
+          } else {
+            p.vx += (p.baseVx - p.vx) * 0.04;
+            p.vy += (p.baseVy - p.vy) * 0.04;
+          }
         } else {
           p.vx += (p.baseVx - p.vx) * 0.04;
           p.vy += (p.baseVy - p.vy) * 0.04;
@@ -100,11 +137,36 @@ export function ParticleField() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECTION_DIST) {
             const alpha = (1 - dist / CONNECTION_DIST) * 0.25;
+            const lineColor =
+              particles[i].color === particles[j].color
+                ? particles[i].color
+                : '#00e5ff';
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
+            ctx.strokeStyle =
+              lineColor === '#00e5ff'
+                ? `rgba(0,229,255,${alpha})`
+                : `rgba(179,136,255,${alpha})`;
             ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Cursor constellation — brighter lines from cursor to nearby particles
+      if (mx !== null && my !== null) {
+        for (const p of particles) {
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.5;
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0,229,255,${alpha.toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(mx, my);
+            ctx.lineTo(p.x, p.y);
             ctx.stroke();
           }
         }
@@ -114,8 +176,27 @@ export function ParticleField() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 229, 255, 0.55)';
+        const isViolet = p.color === '#b388ff';
+        ctx.fillStyle = isViolet
+          ? 'rgba(179,136,255,0.55)'
+          : 'rgba(0,229,255,0.55)';
         ctx.fill();
+      }
+
+      // Draw and update ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rip = ripples[i];
+        rip.r += 3;
+        rip.alpha -= 0.018;
+        if (rip.alpha <= 0) {
+          ripples.splice(i, 1);
+          continue;
+        }
+        ctx.beginPath();
+        ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(0,229,255,${rip.alpha.toFixed(3)})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
       }
 
       animRef.current = requestAnimationFrame(draw);
@@ -132,6 +213,8 @@ export function ParticleField() {
     resize();
     window.addEventListener('resize', resize);
     canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mouseleave', onMouseLeave);
+    canvas.addEventListener('click', onClick);
     document.addEventListener('visibilitychange', onVisibilityChange);
     animRef.current = requestAnimationFrame(draw);
 
@@ -139,6 +222,8 @@ export function ParticleField() {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('mousemove', onMouseMove);
+      canvas.removeEventListener('mouseleave', onMouseLeave);
+      canvas.removeEventListener('click', onClick);
       document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [prefersReducedMotion]);
