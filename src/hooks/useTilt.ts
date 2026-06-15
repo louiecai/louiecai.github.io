@@ -39,8 +39,14 @@ export function useTilt(maxAngle = 9): TiltHandlers {
       const rect = ref.current.getBoundingClientRect();
       const px = (e.clientX - rect.left) / rect.width;   // 0..1
       const py = (e.clientY - rect.top) / rect.height;   // 0..1
-      const rotateY = (px - 0.5) * maxAngle * 2;
-      const rotateX = -(py - 0.5) * maxAngle * 2;
+      // Scale the angle down for larger panels so the perceived edge motion is
+      // consistent: a wide/tall card at the same angle displaces its edges much
+      // further in pixels than a small one. REF = size at which full angle applies.
+      const REF = 360;
+      const wFactor = Math.min(1, REF / rect.width);
+      const hFactor = Math.min(1, REF / rect.height);
+      const rotateY = (px - 0.5) * maxAngle * 2 * wFactor;
+      const rotateX = -(py - 0.5) * maxAngle * 2 * hFactor;
       ref.current.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
       ref.current.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
       ref.current.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
