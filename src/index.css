@@ -51,11 +51,11 @@
   /* iOS-style "liquid glass": translucent, backdrop-blurred, with a soft
      refraction/saturation lift. Used by every card (TiltCard). */
   .glass {
-    /* More opaque + small blur radius: keeps the glass look but far cheaper
-       than a wide-radius backdrop blur over the animated particle field. */
-    background-color: rgb(var(--c-surface) / 0.78);
+    /* Translucent enough to actually show the frosted blur, with a moderate
+       radius (8px) — cheaper than the original 16px but still visibly glassy. */
+    background-color: rgb(var(--c-surface) / 0.55);
     border: 1px solid rgb(var(--c-border) / 0.7);
-    @apply backdrop-blur-sm;
+    @apply backdrop-blur;
   }
 }
 

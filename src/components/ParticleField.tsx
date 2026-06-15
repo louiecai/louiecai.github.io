@@ -78,8 +78,8 @@ export function ParticleField() {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
       const count = Math.min(
-        Math.floor((canvas.width * canvas.height) / 10000),
-        130
+        Math.floor((canvas.width * canvas.height) / 14000),
+        90
       );
       particles = Array.from({ length: count }, () =>
         createParticle(canvas.width, canvas.height)
