@@ -17,18 +17,19 @@ export function useTilt(maxAngle = 9): TiltHandlers {
       ? window.matchMedia('(pointer: coarse)').matches
       : false;
 
-  // Mobile / touch: drive tilt + holographic sheen from the device gyroscope.
-  // Every card reacts together as the phone is tilted (holographic-foil feel).
+  // Mobile / touch: drive the tilt + glass specular from the device gyroscope.
+  // Every card reacts together as the phone is tilted; the highlight scales with
+  // tilt magnitude so a flat phone shows almost nothing.
   useEffect(() => {
     if (reduced || !coarse) return;
     return subscribeTilt((x, y) => {
       const el = ref.current;
       if (!el) return;
-      el.style.transform = `perspective(700px) rotateX(${(-y * maxAngle).toFixed(2)}deg) rotateY(${(x * maxAngle).toFixed(2)}deg) scale(1.02)`;
+      const mag = Math.min(1, Math.hypot(x, y));
+      el.style.transform = `perspective(700px) rotateX(${(-y * maxAngle).toFixed(2)}deg) rotateY(${(x * maxAngle).toFixed(2)}deg) scale(${(1 + 0.02 * mag).toFixed(3)})`;
       el.style.setProperty('--mx', `${(50 + x * 50).toFixed(1)}%`);
       el.style.setProperty('--my', `${(50 + y * 50).toFixed(1)}%`);
-      el.style.setProperty('--glow-opacity', '1');
-      el.style.setProperty('--holo-opacity', '0.6');
+      el.style.setProperty('--glow-opacity', (0.85 * mag).toFixed(2));
     });
   }, [reduced, coarse, maxAngle]);
 
@@ -44,7 +45,6 @@ export function useTilt(maxAngle = 9): TiltHandlers {
       ref.current.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
       ref.current.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
       ref.current.style.setProperty('--glow-opacity', '1');
-      ref.current.style.setProperty('--holo-opacity', '0.8');
     },
     [reduced, coarse, maxAngle]
   );
@@ -53,7 +53,6 @@ export function useTilt(maxAngle = 9): TiltHandlers {
     if (!ref.current) return;
     ref.current.style.transform = '';
     ref.current.style.setProperty('--glow-opacity', '0');
-    ref.current.style.setProperty('--holo-opacity', '0');
   }, []);
 
   return { ref, onMouseMove, onMouseLeave };

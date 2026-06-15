@@ -31,7 +31,7 @@ export function Nav() {
           className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur border-b border-border"
           aria-label="Main navigation"
         >
-          <div className="max-w-5xl mx-auto px-4 pr-14 md:pr-4 flex items-center justify-between h-14">
+          <div className="max-w-5xl mx-auto px-4 pr-14 flex items-center justify-between h-14">
             <button
               onClick={() => scrollTo('about')}
               className="font-mono text-cyan font-bold tracking-widest text-sm hover:text-fg transition-colors"

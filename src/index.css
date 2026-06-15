@@ -15,13 +15,14 @@
   }
 
   html.light {
-    --c-bg: 247 248 250;
-    --c-surface: 255 255 255;
-    --c-border: 222 226 233;
-    --c-muted: 90 96 116;
-    --c-fg: 17 20 31;
-    --c-cyan: 8 145 178;    /* deeper teal for contrast on white */
-    --c-violet: 124 58 237; /* deeper purple for contrast on white */
+    /* Warm, paper-like light theme. Surface is lighter than bg so cards pop. */
+    --c-bg: 244 240 233;     /* warm off-white page */
+    --c-surface: 255 252 246; /* warm white card (lighter than bg) */
+    --c-border: 226 219 206;  /* warm border */
+    --c-muted: 99 92 80;      /* warm grey, good contrast */
+    --c-fg: 41 36 29;         /* warm near-black */
+    --c-cyan: 13 148 136;     /* warm deep teal for contrast on warm white */
+    --c-violet: 124 58 237;   /* deep purple for contrast */
   }
 
   html {
@@ -43,6 +44,16 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(var(--c-cyan) / 0.25);
+  }
+}
+
+@layer components {
+  /* iOS-style "liquid glass": translucent, backdrop-blurred, with a soft
+     refraction/saturation lift. Used by every card (TiltCard). */
+  .glass {
+    background-color: rgb(var(--c-surface) / 0.55);
+    border: 1px solid rgb(var(--c-border) / 0.7);
+    @apply backdrop-blur-lg backdrop-saturate-150;
   }
 }
 

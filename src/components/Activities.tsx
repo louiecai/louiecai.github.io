@@ -9,7 +9,7 @@ export function Activities() {
     <Section id="activities" title="Activities">
       <div className="space-y-4">
         {profile.activities.map((act, i) => (
-          <TiltCard key={i} className="bg-surface border border-border rounded-lg p-6">
+          <TiltCard key={i} className="rounded-xl p-6">
             <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
               <h3 className="text-fg font-semibold">
                 <DecodeText text={act.name} className="" />

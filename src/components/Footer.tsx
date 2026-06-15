@@ -17,7 +17,7 @@ export function Footer() {
         {/* Email CTA */}
         <a
           href={`mailto:${profile.email}`}
-          className="inline-block px-6 py-3 bg-cyan text-bg font-semibold rounded hover:bg-white transition-colors mb-10"
+          className="inline-block px-6 py-3 bg-cyan text-bg font-semibold rounded hover:opacity-90 transition-opacity mb-10"
         >
           {profile.email}
         </a>

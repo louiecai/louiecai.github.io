@@ -96,7 +96,7 @@ export function ParticleField() {
       }
     };
 
-    const onPointerLeave = () => {
+    const clearPointer = () => {
       pointerRef.current = { x: null, y: null };
     };
 
@@ -260,7 +260,8 @@ export function ParticleField() {
     resize();
     window.addEventListener('resize', resize);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
-    window.addEventListener('pointerleave', onPointerLeave);
+    window.addEventListener('pointerup', clearPointer);       // touch lift
+    document.addEventListener('mouseleave', clearPointer);    // cursor exits viewport
     window.addEventListener('pointerdown', onPointerDown, { passive: true });
     document.addEventListener('visibilitychange', onVisibilityChange);
     animRef.current = requestAnimationFrame(draw);
@@ -269,7 +270,8 @@ export function ParticleField() {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointerup', clearPointer);
+      document.removeEventListener('mouseleave', clearPointer);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('themechange', onThemeChange);
       document.removeEventListener('visibilitychange', onVisibilityChange);

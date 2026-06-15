@@ -56,7 +56,7 @@ export function Hero() {
           <MagneticButton>
             <button
               onClick={scrollToWork}
-              className="px-6 py-3 bg-cyan text-bg font-semibold rounded hover:bg-white transition-colors"
+              className="px-6 py-3 bg-cyan text-bg font-semibold rounded hover:opacity-90 transition-opacity"
             >
               View My Work
             </button>

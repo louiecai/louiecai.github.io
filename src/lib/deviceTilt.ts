@@ -59,6 +59,8 @@ async function enableDeviceMotion() {
     try {
       const res = await D.requestPermission();
       if (res === 'granted') {
+        // Avoid a duplicate listener (one may already be attached pre-grant).
+        window.removeEventListener('deviceorientation', onOrient);
         window.addEventListener('deviceorientation', onOrient, { passive: true });
       }
     } catch {
@@ -103,6 +105,7 @@ export function subscribeTilt(cb: TiltListener): () => void {
     if (listeners.size === 0) {
       cancelAnimationFrame(rafId);
       started = false;
+      gestureBound = false;
       window.removeEventListener('mousemove', onMouse);
       window.removeEventListener('deviceorientation', onOrient);
       window.removeEventListener('orientationchange', resetTiltBaseline);
