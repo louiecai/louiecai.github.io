@@ -1,31 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <defs>
-    <linearGradient id="cursor" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00E5FF"/>
+    <!-- Diagonal cyan→violet, same as the nav logo -->
+    <linearGradient id="g" x1="0" y1="0" x2="52" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#00E5FF"/>
       <stop offset="100%" stop-color="#B388FF"/>
-    </linearGradient>
-    <linearGradient id="chevron" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#00E5FF"/>
-      <stop offset="100%" stop-color="#00BBDD"/>
     </linearGradient>
   </defs>
 
   <!-- Dark rounded background -->
-  <rect width="32" height="32" rx="7" fill="#0A0A0F"/>
+  <rect width="32" height="32" rx="6" fill="#0A0A0F"/>
 
-  <!-- Subtle inner glow ring -->
-  <rect width="32" height="32" rx="7" fill="none" stroke="#00E5FF" stroke-width="0.75" opacity="0.18"/>
-
-  <!-- > chevron (prompt) -->
-  <polyline
-    points="5.5,10.5 12.5,16 5.5,21.5"
-    stroke="url(#chevron)"
-    stroke-width="2.8"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    fill="none"
-  />
-
-  <!-- _ cursor block with cyan→violet gradient -->
-  <rect x="15" y="19.5" width="11" height="3.2" rx="1.2" fill="url(#cursor)"/>
+  <!-- LC monogram scaled to fit, centered -->
+  <!-- Original viewBox 0 0 52 36 → scale 0.527 → 27.4×19, offset (2.3, 6.5) -->
+  <g transform="translate(2.3 6.5) scale(0.527)">
+    <!-- L: vertical bar + foot -->
+    <rect x="2"  y="2"  width="5"  height="32" rx="2.5" fill="url(#g)"/>
+    <rect x="2"  y="29" width="19" height="5"  rx="2.5" fill="url(#g)"/>
+    <!-- C: top bar + left bar + bottom bar -->
+    <rect x="26" y="2"  width="24" height="5"  rx="2.5" fill="url(#g)"/>
+    <rect x="26" y="2"  width="5"  height="32" rx="2.5" fill="url(#g)"/>
+    <rect x="26" y="29" width="24" height="5"  rx="2.5" fill="url(#g)"/>
+  </g>
 </svg>
