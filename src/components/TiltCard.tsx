@@ -13,13 +13,15 @@ interface TiltCardProps {
  * the cursor-reactive highlights on top.
  */
 export function TiltCard({ children, className = '' }: TiltCardProps) {
-  const { ref, onMouseMove, onMouseLeave } = useTilt();
+  const { ref, onPointerMove, onPointerLeave, onPointerCancel, onPointerUp } = useTilt();
 
   return (
     <div
       ref={ref}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      onPointerCancel={onPointerCancel}
+      onPointerUp={onPointerUp}
       className={`glass relative overflow-hidden ${className}`}
       style={{
         transition: 'transform 0.12s ease, box-shadow 0.3s ease',

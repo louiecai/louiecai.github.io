@@ -6,7 +6,9 @@ describe('useTilt', () => {
   it('returns ref and handlers', () => {
     const { result } = renderHook(() => useTilt());
     expect(result.current.ref).toBeDefined();
-    expect(typeof result.current.onMouseMove).toBe('function');
-    expect(typeof result.current.onMouseLeave).toBe('function');
+    expect(typeof result.current.onPointerMove).toBe('function');
+    expect(typeof result.current.onPointerLeave).toBe('function');
+    expect(typeof result.current.onPointerCancel).toBe('function');
+    expect(typeof result.current.onPointerUp).toBe('function');
   });
 });

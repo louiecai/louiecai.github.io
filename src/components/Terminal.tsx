@@ -131,7 +131,11 @@ export function Terminal({ onThemeToggle }: TerminalProps) {
       }
     };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('open-terminal', openTerminal);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('open-terminal', openTerminal);
+    };
   }, [openTerminal]);
 
   // Track open state for the window handler; move focus into the input on open
@@ -337,12 +341,12 @@ export function Terminal({ onThemeToggle }: TerminalProps) {
         onClick={openTerminal}
         aria-label="Open terminal (Command or Control + K)"
         aria-haspopup="dialog"
-        className={`fixed bottom-4 right-4 z-[60] flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-2 font-mono text-xs text-muted backdrop-blur transition-colors hover:border-cyan/40 hover:text-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50 ${
+        className={`fixed bottom-5 right-5 z-[60] flex items-center gap-2 rounded-full border border-cyan/50 bg-surface/80 px-4 py-2.5 font-mono text-sm text-cyan shadow-[0_0_12px_rgb(var(--c-cyan)/0.25)] backdrop-blur transition-all hover:border-cyan hover:shadow-[0_0_20px_rgb(var(--c-cyan)/0.4)] hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50 ${
           open ? 'hidden' : ''
         }`}
       >
-        <span className="text-cyan">{'>_'}</span>
-        <span className="hidden sm:inline">Terminal</span>
+        <span>{'>_'}</span>
+        <span>Terminal</span>
         <kbd className="rounded border border-border px-1 text-[10px] text-muted">⌘K</kbd>
       </button>
 

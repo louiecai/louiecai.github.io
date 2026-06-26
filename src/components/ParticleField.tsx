@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
-import { getTilt } from '../lib/deviceTilt';
 import { readAccents } from '../lib/themeColors';
 
 interface Particle {
@@ -31,7 +30,6 @@ interface TrailPoint {
 const REPEL_RADIUS = 140;
 const CONNECTION_DIST = 110;
 const BASE_SPEED = 0.35;
-const PARALLAX = 22; // px of drift from device tilt / mouse
 
 function createParticle(w: number, h: number): Particle {
   const angle = Math.random() * Math.PI * 2;
@@ -123,11 +121,6 @@ export function ParticleField() {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Gyro / mouse parallax drift of the whole field
-      const tilt = getTilt();
-      ctx.save();
-      ctx.translate(tilt.x * PARALLAX, tilt.y * PARALLAX);
 
       const mx = pointerRef.current.x;
       const my = pointerRef.current.y;
@@ -245,7 +238,6 @@ export function ParticleField() {
         ctx.stroke();
       }
 
-      ctx.restore();
       animRef.current = requestAnimationFrame(draw);
     };
 

@@ -74,7 +74,7 @@ export function Hero() {
         </motion.div>
 
         {/* Socials */}
-        <motion.div variants={fadeUpItem} className="flex gap-4 justify-center mb-16">
+        <motion.div variants={fadeUpItem} className="flex gap-4 justify-center mb-8">
           {profile.socials
             .filter(s => SOCIAL_LABELS.includes(s.label))
             .map(social => (
@@ -89,6 +89,20 @@ export function Hero() {
                 {social.label}
               </a>
             ))}
+        </motion.div>
+
+        {/* Terminal invite */}
+        <motion.div variants={fadeUpItem} className="mb-16 flex justify-center">
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event('open-terminal'))}
+            className="group flex items-center gap-2 font-mono text-sm text-cyan/80 transition-colors hover:text-cyan"
+            aria-label="Open terminal"
+          >
+            <span className="terminal-cursor-blink text-cyan" aria-hidden="true">&gt;_</span>
+            <span>explore the terminal</span>
+            <kbd className="rounded border border-border/60 px-1 text-[10px] text-muted group-hover:border-cyan/40 transition-colors">⌘K</kbd>
+          </button>
         </motion.div>
 
         {/* Scroll cue */}

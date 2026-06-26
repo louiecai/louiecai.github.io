@@ -9,7 +9,7 @@ import { CountUp } from './CountUp';
 
 function ProjectCard({ project }: { project: ProjectItem }) {
   return (
-    <TiltCard className="rounded-xl p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
+    <TiltCard className="h-full rounded-xl p-5 flex flex-col gap-3 hover:border-cyan/40 transition-colors">
       <div className="flex items-start justify-between gap-2">
         <h3 className="text-fg font-semibold">
           <DecodeText text={project.name} className="" />
@@ -60,7 +60,7 @@ export function Projects() {
           </h3>
           <div className="grid md:grid-cols-2 gap-4">
             {professional.map((p) => (
-              <motion.div key={p.name} variants={fadeUpItem}>
+              <motion.div key={p.name} variants={fadeUpItem} className="h-full">
                 <ProjectCard project={p} />
               </motion.div>
             ))}
@@ -73,7 +73,7 @@ export function Projects() {
         </h3>
         <div className="grid md:grid-cols-2 gap-4">
           {personal.map((p) => (
-            <motion.div key={p.name} variants={fadeUpItem}>
+            <motion.div key={p.name} variants={fadeUpItem} className="h-full">
               <ProjectCard project={p} />
             </motion.div>
           ))}
