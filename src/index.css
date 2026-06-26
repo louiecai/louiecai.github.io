@@ -79,6 +79,17 @@
       animation: sheen 4s linear infinite;
     }
   }
+
+  /* Block cursor for the interactive Terminal. The component only applies this
+     class when reduced-motion is off, so the keyframe never needs to run. */
+  .terminal-cursor-blink {
+    animation: terminal-blink 1.1s steps(1) infinite;
+  }
+}
+
+@keyframes terminal-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 @keyframes sheen {

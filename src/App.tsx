@@ -11,8 +11,12 @@ import { Skills } from './components/Skills';
 import { Activities } from './components/Activities';
 import { Education } from './components/Education';
 import { Footer } from './components/Footer';
+import { Terminal } from './components/Terminal';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
+  const { toggle } = useTheme();
+
   return (
     <>
       <AuroraBackground />      {/* -z-20, behind particles */}
@@ -30,6 +34,7 @@ function App() {
         <Education />
       </main>
       <Footer />
+      <Terminal onThemeToggle={toggle} />  {/* z-[80] overlay, z-[60] launcher */}
     </>
   );
 }
