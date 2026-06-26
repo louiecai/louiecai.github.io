@@ -8,9 +8,9 @@ describe('Logo', () => {
     expect(container.querySelector('svg')).not.toBeNull();
   });
 
-  it('contains the initials LC', () => {
-    render(<Logo />);
-    expect(screen.getByText('LC')).toBeDefined();
+  it('renders the geometric glyph rects', () => {
+    const { container } = render(<Logo />);
+    expect(container.querySelectorAll('rect').length).toBeGreaterThanOrEqual(5);
   });
 
   it('accepts a custom size', () => {

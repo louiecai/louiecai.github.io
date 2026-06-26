@@ -1,5 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 36">
-  <text x="2" y="27" font-family="monospace" font-size="24" font-weight="700" fill="#00e5ff">&lt;</text>
-  <text x="18" y="27" font-family="monospace" font-size="22" font-weight="700" fill="#00e5ff">LC</text>
-  <text x="54" y="27" font-family="monospace" font-size="24" font-weight="700" fill="#00e5ff">&gt;</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="cursor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#B388FF"/>
+    </linearGradient>
+    <linearGradient id="chevron" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#00BBDD"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark rounded background -->
+  <rect width="32" height="32" rx="7" fill="#0A0A0F"/>
+
+  <!-- Subtle inner glow ring -->
+  <rect width="32" height="32" rx="7" fill="none" stroke="#00E5FF" stroke-width="0.75" opacity="0.18"/>
+
+  <!-- > chevron (prompt) -->
+  <polyline
+    points="5.5,10.5 12.5,16 5.5,21.5"
+    stroke="url(#chevron)"
+    stroke-width="2.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- _ cursor block with cyan→violet gradient -->
+  <rect x="15" y="19.5" width="11" height="3.2" rx="1.2" fill="url(#cursor)"/>
 </svg>
