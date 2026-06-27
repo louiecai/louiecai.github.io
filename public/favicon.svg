@@ -7,9 +7,6 @@
     </linearGradient>
   </defs>
 
-  <!-- Dark rounded background -->
-  <rect width="32" height="32" rx="6" fill="#0A0A0F"/>
-
   <!-- LC monogram scaled to fit, centered -->
   <!-- Original viewBox 0 0 52 36 → scale 0.527 → 27.4×19, offset (2.3, 6.5) -->
   <g transform="translate(2.3 6.5) scale(0.527)">
